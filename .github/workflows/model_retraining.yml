@@ -20,7 +20,8 @@ jobs:
 
       - name: Run actions/checkout@v3
         uses: actions/checkout@v3
-        - name: Set up Python 3.12.7
+      
+      - name: Set up Python 3.12.7
         uses: actions/setup-python@v4
         with:
           python-version: '3.12.7'
@@ -34,7 +35,8 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install mlflow==2.19.0 scikit-learn==1.4.1 pandas==2.2.0 numpy==1.26.3 matplotlib==3.8.2 seaborn==0.13.1 joblib==1.3.2
-        - name: Run mlflow project
+      
+      - name: Run mlflow project
         working-directory: ${{ github.workspace }}/Workflow-CI/MLProject
         env:
           MLFLOW_TRACKING_URI: ${{ secrets.MLFLOW_TRACKING_URI || 'https://dagshub.com/Hans4yu/Membangun_model.mlflow' }}
@@ -52,7 +54,8 @@ jobs:
       - name: Install Python dependencies
         run: |
           pip install requests
-        - name: Upload to GitHub
+      
+      - name: Upload to GitHub
         uses: actions/upload-artifact@v3
         with:
           name: model-artifacts
@@ -80,88 +83,20 @@ jobs:
         run: |
           # Generate timestamp for the image tag
           TIMESTAMP=$(date +%Y%m%d%H%M%S)
+          echo "DOCKER_IMAGE_TAG=${TIMESTAMP}" >> $GITHUB_ENV
           
-          # Copy model artifacts to Docker build context
-          mkdir -p docker_build
-          cp -r MLProject/artifacts docker_build/
-          
-          # Create Dockerfile
-          cat > docker_build/Dockerfile << EOF
-          FROM python:3.8-slim
-          
-          WORKDIR /app
-          
-          COPY artifacts /app/artifacts
-          
-          RUN pip install mlflow==2.19.0 scikit-learn==1.4.1 pandas==2.2.0 joblib==1.3.2 flask==2.0.1
-          
-          # Create a simple Flask app to serve the model
-          COPY artifacts/model.pkl /app/model.pkl
-          
-          # Create a simple model server
-          RUN echo 'from flask import Flask, request, jsonify\n\
-          import numpy as np\n\
-          import joblib\n\
-          import json\n\
-          \n\
-          app = Flask(__name__)\n\
-          \n\
-          # Load the model\n\
-          model = joblib.load("/app/model.pkl")\n\
-          \n\
-          @app.route("/")\n\
-          def home():\n\
-              return "Loan Approval Model API"\n\
-          \n\
-          @app.route("/predict", methods=["POST"])\n\
-          def predict():\n\
-              try:\n\
-                  # Get input features from request\n\
-                  features = request.json\n\
-                  \n\
-                  # Convert to numpy array\n\
-                  input_features = np.array(list(features.values())).reshape(1, -1)\n\
-                  \n\
-                  # Make prediction\n\
-                  prediction = model.predict(input_features)\n\
-                  probability = model.predict_proba(input_features)[0][1]  # Probability of class 1\n\
-                  \n\
-                  # Return prediction\n\
-                  return jsonify({\n\
-                      "prediction": int(prediction[0]),\n\
-                      "probability": float(probability),\n\
-                      "status": "Approved" if prediction[0] == 1 else "Rejected"\n\
-                  })\n\
-              except Exception as e:\n\
-                  return jsonify({"error": str(e)})\n\
-          \n\
-          # Load model info\n\
-          try:\n\
-              with open("/app/artifacts/model_info.json", "r") as f:\n\
-                  model_info = json.load(f)\n\
-          except:\n\
-              model_info = {}\n\
-          \n\
-          @app.route("/info", methods=["GET"])\n\
-          def info():\n\
-              return jsonify(model_info)\n\
-          \n\
-          if __name__ == "__main__":\n\
-              app.run(host="0.0.0.0", port=5000)' > /app/app.py
-          
-          EXPOSE 5000
-          
-          CMD ["python", "app.py"]
-          EOF
-          
-          # Build and push Docker image
-          docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/loan-approval-model:${TIMESTAMP} -t ${{ secrets.DOCKER_HUB_USERNAME }}/loan-approval-model:latest docker_build/
-          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/loan-approval-model:${TIMESTAMP}
+          # Create Dockerfile if needed
+          docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/loan-approval-model:${TIMESTAMP} -t ${{ secrets.DOCKER_HUB_USERNAME }}/loan-approval-model:latest .
+      
+      - name: Push Docker Image
+        if: github.ref == 'refs/heads/main'  # Only on main branch
+        run: |
+          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/loan-approval-model:${{ env.DOCKER_IMAGE_TAG }}
           docker push ${{ secrets.DOCKER_HUB_USERNAME }}/loan-approval-model:latest
           
           # Create Docker Hub link file
-          echo "Docker Hub Repository: https://hub.docker.com/r/${{ secrets.DOCKER_HUB_USERNAME }}/loan-approval-model" > docker_hub_link.txt
-          
+          echo "Docker Hub Repository: https://hub.docker.com/r/${{ secrets.DOCKER_HUB_USERNAME }}/loan-approval-model" > ${{ github.workspace }}/Workflow-CI/docker_hub_link.txt
+      
       - name: Post Log in to Docker Hub
         if: always() && github.ref == 'refs/heads/main'
         run: docker logout
