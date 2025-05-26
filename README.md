@@ -29,6 +29,22 @@ This directory contains an automated CI workflow for model retraining using MLfl
 3. **Artifact Management**
    - Model artifacts are saved and can be accessed through MLflow
    - Performance metrics, visualizations, and model binaries are stored
+
+## Troubleshooting
+
+### Common Issues and Solutions
+
+1. **MLflow Command Errors**
+   - If you encounter errors with the `--no-conda` flag, use the standard `mlflow run` command without this flag. The GitHub Actions workflow has been updated to handle this issue.
+   
+2. **Path Issues in GitHub Actions**
+   - The workflow uses `${{ github.workspace }}/MLProject` as the working directory path. If you're running into path issues, check the debug logs to verify the repository structure.
+   
+3. **Missing Artifacts**
+   - If model artifacts aren't generated correctly, the workflow has fallback mechanisms to ensure the Docker build can still complete.
+
+4. **MLProject File Format**
+   - Ensure your MLProject file is properly formatted as YAML. The workflow includes validation to fix common formatting issues automatically.
    
 4. **Docker Integration**
    - Trained model is packaged into a Docker container
