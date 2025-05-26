@@ -14,9 +14,23 @@ jobs:
   model-retraining:
     runs-on: ubuntu-latest
     
+    # Add permissions to write to repository
+    permissions:
+      contents: write
+      actions: read
+    
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0  # Fetch full history for better git operations
+      
+      - name: Setup artifacts directory
+        run: |
+          # Create model_artifacts directory if it doesn't exist
+          mkdir -p model_artifacts
+          echo "Artifacts directory ready"
       
       - name: Set up Python 3.12.7
         uses: actions/setup-python@v4
@@ -100,13 +114,86 @@ jobs:
         run: |
           pip install requests
       
-      - name: Upload to GitHub
+      - name: Upload to GitHub (Temporary Artifacts)
         uses: actions/upload-artifact@v4
         with:
           name: model-artifacts
           path: |
             ${{ github.workspace }}/MLProject/artifacts
             ${{ github.workspace }}/MLProject/mlruns
+      
+      - name: Commit and Push Artifacts to Repository
+        run: |
+          # Configure git
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          
+          # Create timestamp for folder naming
+          TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+          ARTIFACTS_DIR="model_artifacts/${TIMESTAMP}"
+          
+          # Create artifacts directory structure
+          mkdir -p "${ARTIFACTS_DIR}"
+          
+          # Copy artifacts to versioned directory
+          if [ -d "MLProject/artifacts" ]; then
+            cp -r MLProject/artifacts/* "${ARTIFACTS_DIR}/" 2>/dev/null || echo "No artifacts to copy"
+          fi
+          
+          # Copy MLflow runs if they exist
+          if [ -d "MLProject/mlruns" ]; then
+            mkdir -p "${ARTIFACTS_DIR}/mlruns"
+            cp -r MLProject/mlruns/* "${ARTIFACTS_DIR}/mlruns/" 2>/dev/null || echo "No MLflow runs to copy"
+          fi
+          
+          # Create a summary file
+          echo "# Model Training Results - ${TIMESTAMP}" > "${ARTIFACTS_DIR}/README.md"
+          echo "" >> "${ARTIFACTS_DIR}/README.md"
+          echo "**Training Date:** $(date)" >> "${ARTIFACTS_DIR}/README.md"
+          echo "**Commit SHA:** ${{ github.sha }}" >> "${ARTIFACTS_DIR}/README.md"
+          echo "**Branch:** ${{ github.ref_name }}" >> "${ARTIFACTS_DIR}/README.md"
+          echo "" >> "${ARTIFACTS_DIR}/README.md"
+          echo "## Artifacts Included:" >> "${ARTIFACTS_DIR}/README.md"
+          
+          # List all files in artifacts
+          if [ -d "${ARTIFACTS_DIR}" ]; then
+            find "${ARTIFACTS_DIR}" -type f | while read file; do
+              echo "- $(basename "$file")" >> "${ARTIFACTS_DIR}/README.md"
+            done
+          fi
+          
+          # Update main artifacts link
+          echo "# Latest Model Artifacts" > model_artifacts/README.md
+          echo "" >> model_artifacts/README.md
+          echo "**Latest Training:** ${TIMESTAMP}" >> model_artifacts/README.md
+          echo "**Date:** $(date)" >> model_artifacts/README.md
+          echo "" >> model_artifacts/README.md
+          echo "## Available Versions:" >> model_artifacts/README.md
+          ls -1 model_artifacts/ | grep -E '^[0-9]{8}_[0-9]{6}$' | sort -r | head -10 | while read dir; do
+            echo "- [$dir](/$dir/)" >> model_artifacts/README.md
+          done
+          
+          # Add files to git
+          git add model_artifacts/
+          
+          # Check if there are changes to commit
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            # Commit changes
+            git commit -m "Add model artifacts from training run ${TIMESTAMP}
+            
+            - Training completed at: $(date)
+            - Commit SHA: ${{ github.sha }}
+            - Branch: ${{ github.ref_name }}
+            - Artifacts saved to: model_artifacts/${TIMESTAMP}/"
+            
+            # Push changes
+            git push
+            
+            echo "✅ Artifacts successfully saved to repository!"
+            echo "📁 Location: model_artifacts/${TIMESTAMP}"
+          fi
       
       - name: Build Docker Model
         working-directory: ${{ github.workspace }}

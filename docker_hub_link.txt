@@ -1,10 +1,1 @@
-Docker Hub Repository: https://hub.docker.com/r/YOUR_DOCKER_USERNAME/loan-approval-model
-
-Replace YOUR_DOCKER_USERNAME with your actual Docker Hub username after setting up the GitHub Actions workflow and pushing the Docker image.
-
-To use the Docker image:
-1. Pull the image: `docker pull YOUR_DOCKER_USERNAME/loan-approval-model:latest`
-2. Run the container: `docker run -p 5000:5000 YOUR_DOCKER_USERNAME/loan-approval-model:latest`
-3. Access the API at http://localhost:5000
-4. Make predictions using POST requests to http://localhost:5000/predict with JSON input
-5. Get model info using GET requests to http://localhost:5000/info
+https://hub.docker.com/repository/docker/sigmatzy/loan-approval-model/

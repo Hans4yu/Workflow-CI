@@ -2,6 +2,34 @@
 
 This directory contains an automated CI workflow for model retraining using MLflow Projects. The workflow is triggered through GitHub Actions and can automatically build and deploy a Docker image to Docker Hub.
 
+## ✨ NEW: Permanent Artifacts Storage
+
+**Model artifacts are now automatically saved to the repository!** No more temporary artifacts that disappear after a few days.
+
+### What's Saved
+
+- ✅ **model.pkl** - Trained model file
+- ✅ **model_info.json** - Performance metrics (accuracy, precision, recall, etc.)
+- ✅ **metric_info.json** - Metric descriptions
+- ✅ **mlruns/** - Complete MLflow tracking data
+- ✅ **README.md** - Training run details
+
+### Where to Find
+
+All artifacts are stored in the `model_artifacts/` directory with timestamp-based versioning:
+
+```text
+model_artifacts/
+├── README.md                 # Latest training info
+├── 20250526_210000/         # Training run from May 26, 2025 at 21:00:00
+│   ├── README.md            # Details for this specific run
+│   ├── model.pkl            # The trained model
+│   ├── model_info.json      # Performance metrics
+│   └── mlruns/              # MLflow tracking data
+└── 20250527_140000/         # Next training run
+    └── ...
+```
+
 ## Directory Structure
 
 - **MLProject/** - Contains the MLflow project definition and related files
@@ -9,7 +37,8 @@ This directory contains an automated CI workflow for model retraining using MLfl
   - `conda.yaml` - Conda environment specification
   - `modelling.py` - Model training script
   - `loanapproval_preprocessing.csv` - Preprocessed dataset
-  
+
+- **model_artifacts/** - **NEW!** Permanent storage for all training artifacts
 - **Dockerfile** - Dockerfile for creating a model serving container
 - **docker_hub_link.txt** - Link to the Docker Hub repository
 
