@@ -123,15 +123,32 @@ jobs:
             # Create placeholder model file
             python -c "import joblib; import sklearn.ensemble; joblib.dump(sklearn.ensemble.RandomForestClassifier(), 'MLProject/artifacts/model.pkl')"
             
-            # Create model info file using echo and avoiding complex multiline strings
+            # Create model info file using here-document
             timestamp=$(date '+%Y-%m-%d %H:%M:%S')
-            echo "{\"accuracy\": 0.0, \"precision\": 0.0, \"recall\": 0.0, \"f1_score\": 0.0, \"roc_auc\": 0.0, \"timestamp\": \"${timestamp}\"}" > MLProject/artifacts/model_info.json
+            cat > MLProject/artifacts/model_info.json << EOF
+{
+  "accuracy": 0.0,
+  "precision": 0.0,
+  "recall": 0.0,
+  "f1_score": 0.0,
+  "roc_auc": 0.0,
+  "timestamp": "${timestamp}"
+}
+EOF
           fi
           
           # Check for other required files and create them if missing
           if [ ! -f "MLProject/artifacts/metric_info.json" ]; then
             echo "Creating metric_info.json..."
-            echo "{\"accuracy\": \"The ratio of correctly predicted instances to the total instances\", \"precision\": \"The ratio of correctly predicted positive observations to the total predicted positives\", \"recall\": \"The ratio of correctly predicted positive observations to all observations in the actual class\", \"f1_score\": \"The weighted average of precision and recall\", \"roc_auc\": \"Area under the ROC Curve, representing models ability to discriminate between classes\"}" > MLProject/artifacts/metric_info.json
+            cat > MLProject/artifacts/metric_info.json << EOF
+{
+  "accuracy": "The ratio of correctly predicted instances to the total instances",
+  "precision": "The ratio of correctly predicted positive observations to the total predicted positives",
+  "recall": "The ratio of correctly predicted positive observations to all observations in the actual class",
+  "f1_score": "The weighted average of precision and recall",
+  "roc_auc": "Area under the ROC Curve, representing model's ability to discriminate between classes"
+}
+EOF
           fi
           
           # Copy model artifacts to Docker build context
