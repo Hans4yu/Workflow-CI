@@ -1,0 +1,16 @@
+{
+    "accuracy": 0.9880239520958084,
+    "precision": 0.9787878787878788,
+    "recall": 0.99079754601227,
+    "f1_score": 0.9847560975609756,
+    "roc_auc": 0.9991864235177841,
+    "best_params": {
+        "n_estimators": 50,
+        "min_samples_split": 5,
+        "min_samples_leaf": 1,
+        "max_depth": 30,
+        "bootstrap": false
+    },
+    "model_size_mb": 0.8945245742797852,
+    "timestamp": "2025-05-26 14:05:25"
+}
