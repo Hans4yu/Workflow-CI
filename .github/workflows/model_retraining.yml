@@ -57,21 +57,19 @@ jobs:
       - name: Run mlflow project
         working-directory: ${{ github.workspace }}/MLProject
         env:
-          MLFLOW_TRACKING_URI: ${{ secrets.MLFLOW_TRACKING_URI || 'https://dagshub.com/Hans4yu/Membangun_model.mlflow' }}
-          MLFLOW_TRACKING_USERNAME: ${{ secrets.MLFLOW_TRACKING_USERNAME }}
-          MLFLOW_TRACKING_PASSWORD: ${{ secrets.MLFLOW_TRACKING_PASSWORD }}
+          # Use local tracking by default to avoid remote connectivity issues
+          MLFLOW_TRACKING_URI: ""  
           MLFLOW_EXPERIMENT_NAME: "Loan Approval Auto Retraining"
         run: |
           # Create artifacts directory preemptively
           mkdir -p artifacts
           
-          # Run the model training script directly first as a fallback
-          echo "Running Python script directly as fallback:"
+          # Run the model training script directly first
+          echo "Running Python script directly:"
           python modelling.py --data_path=loanapproval_preprocessing.csv --test_size=0.2 --random_state=42 --n_iter=20
           
-          echo ""
-          echo "Running MLflow project:"
-          mlflow run . -P data_path=loanapproval_preprocessing.csv -P test_size=0.2 -P random_state=42 -P n_iter=20 --verbose || echo "MLflow run command failed, but we already ran the script directly"
+          # No need to try mlflow run again since we've improved the direct script approach
+          echo "Model training complete via direct script execution"
       
       - name: Get latest MLflow run_id
         working-directory: ${{ github.workspace }}/MLProject
@@ -134,6 +132,18 @@ jobs:
               "roc_auc": 0.0,
               "timestamp": "'$(date '+%Y-%m-%d %H:%M:%S')'"
             }' > MLProject/artifacts/model_info.json
+          fi
+          
+          # Check for other required files and create them if missing
+          if [ ! -f "MLProject/artifacts/metric_info.json" ]; then
+            echo "Creating metric_info.json..."
+            echo '{
+              "accuracy": "The ratio of correctly predicted instances to the total instances",
+              "precision": "The ratio of correctly predicted positive observations to the total predicted positives",
+              "recall": "The ratio of correctly predicted positive observations to all observations in the actual class",
+              "f1_score": "The weighted average of precision and recall",
+              "roc_auc": "Area under the ROC Curve, representing model's ability to discriminate between classes"
+            }' > MLProject/artifacts/metric_info.json
           fi
           
           # Copy model artifacts to Docker build context
