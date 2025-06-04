@@ -6,8 +6,8 @@ WORKDIR /app
 COPY MLProject/artifacts /app/artifacts
 COPY MLProject/conda.yaml /app/conda.yaml
 
-# Install dependencies
-RUN pip install mlflow==2.19.0 scikit-learn==1.4.0 pandas==2.2.0 numpy==1.26.3 joblib==1.3.2 flask==2.0.1
+# Install dependencies (tambahkan werkzeug versi kompatibel)
+RUN pip install mlflow==2.19.0 scikit-learn==1.4.0 pandas==2.2.0 numpy==1.26.3 joblib==1.3.2 flask==2.0.1 werkzeug==2.0.3
 
 # Copy model file
 COPY MLProject/artifacts/model.pkl /app/model.pkl
