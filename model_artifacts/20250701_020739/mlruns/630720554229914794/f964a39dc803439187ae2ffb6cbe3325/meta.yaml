@@ -1,0 +1,15 @@
+artifact_uri: file:///home/runner/work/Workflow-CI/Workflow-CI/MLProject/mlruns/630720554229914794/f964a39dc803439187ae2ffb6cbe3325/artifacts
+end_time: 1751335657483
+entry_point_name: ''
+experiment_id: '630720554229914794'
+lifecycle_stage: active
+run_id: f964a39dc803439187ae2ffb6cbe3325
+run_name: calm-gull-898
+run_uuid: f964a39dc803439187ae2ffb6cbe3325
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1751335653490
+status: 3
+tags: []
+user_id: runner

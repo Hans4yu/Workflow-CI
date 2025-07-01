@@ -1,0 +1,70 @@
+# Model Training Results - 20250701_020739
+
+**Training Date:** Tue Jul  1 02:07:39 UTC 2025
+**Commit SHA:** 7000300008bbf526c3b106bcc735573592b6115e
+**Branch:** main
+
+## Artifacts Included:
+- cv_results.csv
+- feature_importance.png
+- confusion_matrix.png
+- README.md
+- model_info.json
+- model.pkl
+- class_distribution.png
+- metric_info.json
+- meta.yaml
+- meta.yaml
+- data_path
+- n_iter
+- random_state
+- test_size
+- meta.yaml
+- mlflow.source.git.commit
+- mlflow.source.name
+- mlflow.runName
+- mlflow.user
+- mlflow.source.type
+- bootstrap
+- min_samples_split
+- max_depth
+- n_estimators
+- min_samples_leaf
+- requirements.txt
+- MLmodel
+- python_env.yaml
+- model.pkl
+- conda.yaml
+- cv_results.csv
+- feature_importance.png
+- confusion_matrix.png
+- model_info.json
+- model.pkl
+- class_distribution.png
+- metric_info.json
+- meta.yaml
+- feature_importance_cibil_score
+- f1_score
+- feature_importance_luxury_assets_value
+- feature_importance_residential_assets_value
+- feature_importance_loan_term
+- model_size_mb
+- feature_importance_self_employed
+- feature_importance_income_annum
+- feature_importance_no_of_dependents
+- roc_auc
+- precision
+- feature_importance_education
+- inference_latency_per_sample
+- feature_importance_loan_amount
+- feature_importance_bank_asset_value
+- feature_importance_commercial_assets_value
+- recall
+- accuracy
+- inference_latency
+- mlflow.source.git.commit
+- mlflow.source.name
+- mlflow.runName
+- mlflow.log-model.history
+- mlflow.user
+- mlflow.source.type
