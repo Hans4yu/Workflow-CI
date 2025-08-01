@@ -1,0 +1,15 @@
+artifact_uri: file:///home/runner/work/Workflow-CI/Workflow-CI/MLProject/mlruns/289491764397613780/79595bbe557d45fab8ad1a5c18a7587c/artifacts
+end_time: 1754014970909
+entry_point_name: ''
+experiment_id: '289491764397613780'
+lifecycle_stage: active
+run_id: 79595bbe557d45fab8ad1a5c18a7587c
+run_name: useful-lark-654
+run_uuid: 79595bbe557d45fab8ad1a5c18a7587c
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1754014966540
+status: 3
+tags: []
+user_id: runner
