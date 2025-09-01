@@ -1,0 +1,15 @@
+artifact_uri: file:///home/runner/work/Workflow-CI/Workflow-CI/MLProject/mlruns/758923111674559297/604aba64c5b940ee87c41b87dbc9bfbd/artifacts
+end_time: 1756692069280
+entry_point_name: ''
+experiment_id: '758923111674559297'
+lifecycle_stage: active
+run_id: 604aba64c5b940ee87c41b87dbc9bfbd
+run_name: stylish-skink-922
+run_uuid: 604aba64c5b940ee87c41b87dbc9bfbd
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1756692065279
+status: 3
+tags: []
+user_id: runner
