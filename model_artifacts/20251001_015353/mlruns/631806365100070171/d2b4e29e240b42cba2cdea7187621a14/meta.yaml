@@ -1,0 +1,15 @@
+artifact_uri: file:///home/runner/work/Workflow-CI/Workflow-CI/MLProject/mlruns/631806365100070171/d2b4e29e240b42cba2cdea7187621a14/artifacts
+end_time: 1759283627617
+entry_point_name: ''
+experiment_id: '631806365100070171'
+lifecycle_stage: active
+run_id: d2b4e29e240b42cba2cdea7187621a14
+run_name: RandomForest_CI_20251001_015339
+run_uuid: d2b4e29e240b42cba2cdea7187621a14
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1759283619470
+status: 3
+tags: []
+user_id: runner

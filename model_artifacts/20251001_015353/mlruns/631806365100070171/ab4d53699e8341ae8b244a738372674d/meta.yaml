@@ -1,0 +1,15 @@
+artifact_uri: file:///home/runner/work/Workflow-CI/Workflow-CI/MLProject/mlruns/631806365100070171/ab4d53699e8341ae8b244a738372674d/artifacts
+end_time: 1759283631698
+entry_point_name: ''
+experiment_id: '631806365100070171'
+lifecycle_stage: active
+run_id: ab4d53699e8341ae8b244a738372674d
+run_name: resilient-swan-855
+run_uuid: ab4d53699e8341ae8b244a738372674d
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1759283627620
+status: 3
+tags: []
+user_id: runner
