@@ -1,0 +1,15 @@
+artifact_uri: file:///home/runner/work/Workflow-CI/Workflow-CI/MLProject/mlruns/569374802174700186/e8690c35c911463ebc5a426a0da0cb83/artifacts
+end_time: 1764555098326
+entry_point_name: ''
+experiment_id: '569374802174700186'
+lifecycle_stage: active
+run_id: e8690c35c911463ebc5a426a0da0cb83
+run_name: shivering-sponge-920
+run_uuid: e8690c35c911463ebc5a426a0da0cb83
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1764555094139
+status: 3
+tags: []
+user_id: runner
