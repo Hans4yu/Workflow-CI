@@ -1,0 +1,15 @@
+artifact_uri: file:///home/runner/work/Workflow-CI/Workflow-CI/MLProject/mlruns/505705999810073072/4e98ac52a86b48fca7c0b9dee6b6a52f/artifacts
+end_time: 1775012285140
+entry_point_name: ''
+experiment_id: '505705999810073072'
+lifecycle_stage: active
+run_id: 4e98ac52a86b48fca7c0b9dee6b6a52f
+run_name: marvelous-shrew-971
+run_uuid: 4e98ac52a86b48fca7c0b9dee6b6a52f
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1775012281037
+status: 3
+tags: []
+user_id: runner
