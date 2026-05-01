@@ -1,0 +1,15 @@
+artifact_uri: file:///home/runner/work/Workflow-CI/Workflow-CI/MLProject/mlruns/832120463108622716/edbf820843d242888f5e5c4d7f9edfb2/artifacts
+end_time: 1777607247981
+entry_point_name: ''
+experiment_id: '832120463108622716'
+lifecycle_stage: active
+run_id: edbf820843d242888f5e5c4d7f9edfb2
+run_name: nosy-doe-846
+run_uuid: edbf820843d242888f5e5c4d7f9edfb2
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1777607243777
+status: 3
+tags: []
+user_id: runner
