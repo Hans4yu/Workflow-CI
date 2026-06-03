@@ -237,8 +237,11 @@ jobs:
           TIMESTAMP=$(date +%Y%m%d%H%M%S)
           echo "DOCKER_IMAGE_TAG=${TIMESTAMP}" >> $GITHUB_ENV
           
-          # Create Dockerfile if needed
-          docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/loan-approval-model:${TIMESTAMP} -t ${{ secrets.DOCKER_HUB_USERNAME }}/loan-approval-model:latest .
+          # Pull base image explicitly to ensure all base layers are present
+          docker pull python:3.12-slim
+          
+          # Create Dockerfile if needed, disabling buildkit to prevent unknown blob push errors
+          DOCKER_BUILDKIT=0 docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/loan-approval-model:${TIMESTAMP} -t ${{ secrets.DOCKER_HUB_USERNAME }}/loan-approval-model:latest .
       
       - name: Push Docker Image
         if: github.ref == 'refs/heads/main'  # Only on main branch
