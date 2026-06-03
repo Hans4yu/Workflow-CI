@@ -23,14 +23,19 @@ try:
     
     # Check if we can connect to the tracking server
     try:
-        mlflow.set_experiment(os.environ.get("MLFLOW_EXPERIMENT_NAME", "Loan Approval CI Workflow"))
+        if not os.environ.get("MLFLOW_RUN_ID"):
+            mlflow.set_experiment(os.environ.get("MLFLOW_EXPERIMENT_NAME", "Loan Approval CI Workflow"))
+            print("Successfully set experiment")
+        else:
+            print("Running within active MLflow run, skipping set_experiment")
         print("Successfully connected to MLflow tracking server")
     except Exception as e:
         print(f"Error connecting to MLflow tracking server: {e}")
         print("Falling back to local tracking directory ./mlruns")
         os.makedirs("./mlruns", exist_ok=True)
         mlflow.set_tracking_uri("")  # Use local directory
-        mlflow.set_experiment("Loan Approval CI Workflow")
+        if not os.environ.get("MLFLOW_RUN_ID"):
+            mlflow.set_experiment("Loan Approval CI Workflow")
 except Exception as e:
     print(f"Error setting up MLflow: {e}")
     print("Continuing without MLflow tracking")
@@ -71,6 +76,12 @@ def load_data(data_path, test_size, random_state):
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=random_state)
     
     return X_train, X_test, y_train, y_test
+
+def train_model(X_train, y_train, random_state=42):
+    """Train a Random Forest model"""
+    model = RandomForestClassifier(n_estimators=100, random_state=random_state)
+    model.fit(X_train, y_train)
+    return model
 
 def tune_hyperparameters(X_train, y_train, n_iter, random_state):
     """Tune hyperparameters for the Random Forest model"""
@@ -238,7 +249,9 @@ def main():
     
     print("Training model...")
     try:
-        with mlflow.start_run(run_name=f"RandomForest_CI_{datetime.now().strftime('%Y%m%d_%H%M%S')}"):
+        active_run = mlflow.active_run()
+        run_context = mlflow.start_run() if (active_run or os.environ.get("MLFLOW_RUN_ID")) else mlflow.start_run(run_name=f"RandomForest_CI_{datetime.now().strftime('%Y%m%d_%H%M%S')}")
+        with run_context:
             # Log parameters
             mlflow.log_param("data_path", args.data_path)
             mlflow.log_param("test_size", args.test_size)
