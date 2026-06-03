@@ -1,0 +1,15 @@
+artifact_uri: file:///home/runner/work/Workflow-CI/Workflow-CI/MLProject/mlruns/184395354180738002/4cde7e65dac745f1a3e22103799635bd/artifacts
+end_time: 1780498548852
+entry_point_name: ''
+experiment_id: '184395354180738002'
+lifecycle_stage: active
+run_id: 4cde7e65dac745f1a3e22103799635bd
+run_name: clean-crab-593
+run_uuid: 4cde7e65dac745f1a3e22103799635bd
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1780498544635
+status: 3
+tags: []
+user_id: runner
