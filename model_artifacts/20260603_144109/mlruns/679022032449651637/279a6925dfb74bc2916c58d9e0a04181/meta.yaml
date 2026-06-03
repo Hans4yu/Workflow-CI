@@ -1,0 +1,15 @@
+artifact_uri: file:///home/runner/work/Workflow-CI/Workflow-CI/MLProject/mlruns/679022032449651637/279a6925dfb74bc2916c58d9e0a04181/artifacts
+end_time: 1780497668077
+entry_point_name: ''
+experiment_id: '679022032449651637'
+lifecycle_stage: active
+run_id: 279a6925dfb74bc2916c58d9e0a04181
+run_name: serious-boar-400
+run_uuid: 279a6925dfb74bc2916c58d9e0a04181
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1780497651481
+status: 3
+tags: []
+user_id: runner

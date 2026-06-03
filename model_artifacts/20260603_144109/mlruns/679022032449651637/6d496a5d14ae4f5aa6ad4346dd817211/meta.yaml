@@ -1,0 +1,15 @@
+artifact_uri: file:///home/runner/work/Workflow-CI/Workflow-CI/MLProject/mlruns/679022032449651637/6d496a5d14ae4f5aa6ad4346dd817211/artifacts
+end_time: 1780497667422
+entry_point_name: ''
+experiment_id: '679022032449651637'
+lifecycle_stage: active
+run_id: 6d496a5d14ae4f5aa6ad4346dd817211
+run_name: capable-yak-179
+run_uuid: 6d496a5d14ae4f5aa6ad4346dd817211
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1780497662970
+status: 3
+tags: []
+user_id: runner
