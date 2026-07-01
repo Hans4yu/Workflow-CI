@@ -1,0 +1,75 @@
+# Model Training Results - 20260701_041535
+
+**Training Date:** Wed Jul  1 04:15:35 UTC 2026
+**Commit SHA:** be69cefb5f36daf7812473705fab81e2c0c23cda
+**Branch:** main
+
+## Artifacts Included:
+- feature_importance.png
+- model.pkl
+- README.md
+- confusion_matrix.png
+- mlflow.source.type
+- mlflow.source.git.commit
+- mlflow.user
+- mlflow.source.name
+- mlflow.log-model.history
+- mlflow.runName
+- feature_importance.png
+- model.pkl
+- confusion_matrix.png
+- cv_results.csv
+- class_distribution.png
+- model_info.json
+- python_env.yaml
+- model.pkl
+- MLmodel
+- requirements.txt
+- conda.yaml
+- metric_info.json
+- feature_importance_bank_asset_value
+- recall
+- accuracy
+- inference_latency
+- precision
+- model_size_mb
+- feature_importance_loan_amount
+- feature_importance_no_of_dependents
+- feature_importance_cibil_score
+- feature_importance_education
+- roc_auc
+- feature_importance_loan_term
+- feature_importance_luxury_assets_value
+- inference_latency_per_sample
+- f1_score
+- feature_importance_commercial_assets_value
+- feature_importance_income_annum
+- feature_importance_residential_assets_value
+- feature_importance_self_employed
+- min_samples_leaf
+- max_depth
+- min_samples_split
+- n_estimators
+- bootstrap
+- meta.yaml
+- meta.yaml
+- mlflow.source.type
+- mlflow.source.git.commit
+- mlflow.source.git.repoURL
+- mlflow.user
+- mlflow.source.name
+- mlflow.gitRepoURL
+- mlflow.runName
+- mlflow.project.entryPoint
+- mlflow.project.backend
+- test_size
+- data_path
+- random_state
+- n_iter
+- meta.yaml
+- meta.yaml
+- cv_results.csv
+- class_distribution.png
+- model_info.json
+- metrics.json
+- metric_info.json

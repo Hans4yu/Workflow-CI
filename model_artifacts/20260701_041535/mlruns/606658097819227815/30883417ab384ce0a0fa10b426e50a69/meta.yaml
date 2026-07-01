@@ -1,0 +1,15 @@
+artifact_uri: file:///home/runner/work/Workflow-CI/Workflow-CI/MLProject/mlruns/606658097819227815/30883417ab384ce0a0fa10b426e50a69/artifacts
+end_time: 1782879333290
+entry_point_name: ''
+experiment_id: '606658097819227815'
+lifecycle_stage: active
+run_id: 30883417ab384ce0a0fa10b426e50a69
+run_name: likeable-asp-273
+run_uuid: 30883417ab384ce0a0fa10b426e50a69
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1782879316633
+status: 3
+tags: []
+user_id: runner
