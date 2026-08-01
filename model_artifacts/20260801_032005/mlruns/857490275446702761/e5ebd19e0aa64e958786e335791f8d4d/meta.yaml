@@ -1,0 +1,15 @@
+artifact_uri: file:///home/runner/work/Workflow-CI/Workflow-CI/MLProject/mlruns/857490275446702761/e5ebd19e0aa64e958786e335791f8d4d/artifacts
+end_time: 1785554403616
+entry_point_name: ''
+experiment_id: '857490275446702761'
+lifecycle_stage: active
+run_id: e5ebd19e0aa64e958786e335791f8d4d
+run_name: abundant-zebra-907
+run_uuid: e5ebd19e0aa64e958786e335791f8d4d
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1785554400662
+status: 3
+tags: []
+user_id: runner

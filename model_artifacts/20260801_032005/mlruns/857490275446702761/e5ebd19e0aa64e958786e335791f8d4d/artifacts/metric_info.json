@@ -1,0 +1,11 @@
+{
+    "accuracy": "The ratio of correctly predicted instances to the total instances",
+    "precision": "The ratio of correctly predicted positive observations to the total predicted positives",
+    "recall": "The ratio of correctly predicted positive observations to all observations in the actual class",
+    "f1_score": "The weighted average of precision and recall",
+    "roc_auc": "Area under the ROC Curve, representing model's ability to discriminate between classes",
+    "inference_latency": "Total time taken to make predictions on the test set in seconds",
+    "inference_latency_per_sample": "Average time taken to make a prediction for one sample in milliseconds",
+    "model_size_mb": "Size of the trained model in megabytes",
+    "feature_importance": "Relative importance of each feature in the model's decision making"
+}
